@@ -41,6 +41,22 @@ public class IndexController {
         model.put("clientDetails", clientDetailsService.listClientDetails());
         return new ModelAndView("index", model);
     }
+    
+    @RequestMapping("/approvals")
+    public ModelAndView approvals(Map<String, Object> model, Principal principal) {
+        List<Approval> approvals = clientDetailsService.listClientDetails().stream()
+                .map(clientDetail -> approvalStore.getApprovals(principal.getName(), clientDetail.getClientId()))
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+        model.put("approvals", approvals);
+        return new ModelAndView("approvals", model);
+    }
+    
+    @RequestMapping("/clients")
+    public ModelAndView clients(Map<String, Object> model, Principal principal) {
+        model.put("clientDetails", clientDetailsService.listClientDetails());
+        return new ModelAndView("clients", model);
+    }
 
     @RequestMapping(value = "/approval/revoke", method = RequestMethod.POST)
     public String revokeApproval(@ModelAttribute Approval approval) {
@@ -48,7 +64,7 @@ public class IndexController {
         tokenStore
                 .findTokensByClientIdAndUserName(approval.getClientId(), approval.getUserId())
                 .forEach(tokenStore::removeAccessToken);
-        return "redirect:/";
+        return "redirect:/approvals";
     }
 
     @RequestMapping("/login")

@@ -43,11 +43,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><strong>cloud AIDE</strong> : authorization server</a> 
+                <a class="navbar-brand" th:href="@{/}"><strong>cloud AIDE</strong> : authorization server</a> 
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
+            	<li>
+            		<span sec:authentication="name"></span>
+            	</li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -115,10 +118,6 @@
                         </li>
                         <li sec:authorize="hasRole('ROLE_OAUTH_ADMIN')">
                             <a th:href="@{/clients/form}"><i class="fa fa-edit fa-fw"></i> Register</a>
-                        </li>
-                        <li>
-	                        Logged user: <span sec:authentication="name"></span> <br/>
-							Roles: <span sec:authentication="principal.authorities"></span>
                         </li>
                     </ul>
                 </div>

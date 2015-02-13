@@ -21,7 +21,10 @@
 			<div class="col-lg-12">
 			
 				<div th:if="${param.client}" class="alert alert-warning">Editing a client will delete all user approvals and active tokens.</div>
+				
             	<form th:action="'/clients/edit'" method="post">
+            	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            	<input type="hidden" th:if="!${param.client}" name="newClient" value="true"/>
             	
 				<div class="panel panel-default">
 					<!-- div class="panel-heading">Client Attributes</div -->
@@ -34,7 +37,8 @@
 							</div>
 							<div class="form-group">
 		                        <label for="clientSecret">Client Secret</label>
-		                        <input class="form-control" id="clientSecret" type="password" name="clientSecret"/>
+		                        <input class="form-control" th:if="!${param.client}" id="clientSecret" type="password" name="clientSecret"/>
+		                        <p class="form-control-static" th:if="${param.client}" th:text="${clientDetails.clientSecret}"></p>
 							    <p class="help-block">Used for the grants client_secret, authorization_code, refresh_token. Will not be updated if left empty.</p>
 		                    </div>
 		                    <div class="form-group">

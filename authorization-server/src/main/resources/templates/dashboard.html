@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/layout-main">
+	layout:decorator="layout/layout-main"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <title>Welcome.</title>
 </head>
@@ -18,6 +19,8 @@
             <p>managing and verifying the OAuth 2.0 tokens used to access the protected resources.</p>
         </blockquote>
         </div>
+        
+        <small><strong>Credentials : </strong><div sec:authentication="principal"></div></small>
         <!-- /.col-lg-12 -->
     </div>
     

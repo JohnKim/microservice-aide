@@ -61,6 +61,8 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter{
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security)
 			throws Exception {
+		// only for RemoteTokenService !!
+		security.tokenKeyAccess("isAnonymous() || permitAll()").checkTokenAccess("permitAll()");
 	}
 
 	@Override

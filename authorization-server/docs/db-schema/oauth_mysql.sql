@@ -98,3 +98,9 @@ INSERT INTO `credentials` VALUES(2,1,'user','user',0);
 INSERT INTO `credentials_authorities` VALUES(0,0);
 INSERT INTO `credentials_authorities` VALUES(1,1);
 INSERT INTO `credentials_authorities` VALUES(2,2);
+
+
+INSERT INTO cloud_oauth.oauth_client_details
+(client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove)
+VALUES('sample-client-cli', 'sample-resource', 'AAAAAA123456', 'read,write', 'client_credentials', '', '', 300, 0, '{}', '');
+

@@ -1,0 +1,12 @@
+{
+  "name": "client-nodejs-oauth2",
+  "version": "0.0.1",
+  "description": "sample oauth client",
+  "main": "index.js",
+  "scripts": {},
+  "author": "yohany@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.53.0"
+  }
+}

@@ -6,14 +6,14 @@ var credentials = {
 
 var oauthClient = require('./lib/oauth_client_credentials')(credentials);
 
-oauthClient.api('GET', 'http://localhost:8081/ping', {}, function(error, result, token) {
+oauthClient.api('GET', 'http://localhost:3000/ping', {}, function(error, result, token) {
 
   console.log(error, result, token);
 
+/*
   oauthClient.checkToken(token+'', function(error, statusCode, result){
-
     console.log(error, statusCode, result);
-
   });
+*/
 
 });

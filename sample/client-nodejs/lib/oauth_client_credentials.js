@@ -50,6 +50,42 @@ module.exports = function(config) {
 
   }
 
+  function authorized(req, res, callback) {
+
+    var token = null;
+    if(req.headers.authorization){
+      var parts = req.headers.authorization.split(' ');
+      if (parts.length == 2) {
+          var scheme = parts[0];
+          var credentials = parts[1];
+
+          if (/^Bearer$/i.test(scheme)) {
+              token = credentials;
+
+              checkToken(token, function(error, statusCode, body){
+
+                console.log(error, statusCode, body);
+
+                if(statusCode == 200){
+                  callback(req, res);
+                }else{
+                  res.send(statusCode, body);
+                }
+
+              });
+
+          } else{
+            res.send(400, 'not available');
+          }
+      } else {
+        res.send(400, 'Format is Authorization: Bearer [token]');
+      }
+    } else {
+      res.send(400, 'not available');
+    }
+
+  };
+
   function call(method, url, params, callback) {
 
     var options = { uri: url, method: method }
@@ -98,6 +134,7 @@ module.exports = function(config) {
 
   return {
     'api': api,
-    'checkToken': checkToken
+    'checkToken': checkToken,
+    'authorized': authorized
   }
 };
